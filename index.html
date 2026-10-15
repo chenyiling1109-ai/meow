@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喵星人不思議 - 貓咪深度介紹與互動指南</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans TC & Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        peach: {
+                            50: '#fff5f0',
+                            100: '#ffe6dc',
+                            200: '#ffd0bc',
+                            300: '#ffaa8b',
+                            400: '#ff7b4f',
+                            500: '#ff5722',
+                            600: '#f03a0b',
+                        },
+                        cream: {
+                            50: '#fcfbfa',
+                            100: '#f7f4f0',
+                            200: '#ece5dc',
+                            300: '#ded3c5',
+                        },
+                        warmbrown: {
+                            700: '#5c4033',
+                            800: '#3d2821',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', '"Quicksand"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fcfbfa;
+            color: #3d2821;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px -5px rgba(255, 123, 79, 0.08), 0 5px 15px -5px rgba(0, 0, 0, 0.04);
+        }
+        .card-shadow-hover:hover {
+            box-shadow: 0 20px 40px -10px rgba(255, 123, 79, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.06);
+            transform: translateY(-4px);
+        }
+        .transition-all-custom {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* 自訂捲軸 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f7f4f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffd0bc;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffaa8b;
+        }
+    </style>
+</head>
+<body class="bg-cream-50 font-sans antialiased selection:bg-peach-200 selection:text-warmbrown-800">
+
+    <!-- 導航列 -->
+    <header class="sticky top-0 z-50 bg-cream-50/90 backdrop-blur-md border-b border-cream-200 transition-all-custom">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gradient-to-tr from-peach-400 to-peach-300 rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shadow-peach-300/50">
+                    <i class="fa-solid fa-cat"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-wider text-warmbrown-800">喵星人不思議</span>
+                    <span class="block text-xs text-peach-500 font-medium">Cat's Secret World</span>
+                </div>
+            </div>
+            
+            <!-- 桌面版導航 -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm text-warmbrown-700">
+                <a href="#breeds" class="hover:text-peach-500 transition-colors">品種解密</a>
+                <a href="#care" class="hover:text-peach-500 transition-colors">日常照顧</a>
+                <a href="#facts" class="hover:text-peach-500 transition-colors">趣味冷知識</a>
+                <a href="#quotes" class="hover:text-peach-500 transition-colors">喵語錄</a>
+                <a href="#gallery" class="hover:text-peach-500 transition-colors">寫真藝廊</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="openMeowModal()" class="bg-peach-500 hover:bg-peach-600 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg shadow-peach-500/30 transition-all-custom hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-heart mr-2"></i>摸摸貓咪
+                </button>
+                <!-- 手機版選單按鈕 -->
+                <button id="menu-btn" class="md:hidden text-warmbrown-800 focus:outline-none p-2">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 手機版下拉選單 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream-100 border-b border-cream-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="#breeds" class="block py-2 text-warmbrown-700 hover:text-peach-500 font-medium">品種解密</a>
+            <a href="#care" class="block py-2 text-warmbrown-700 hover:text-peach-500 font-medium">日常照顧</a>
+            <a href="#facts" class="block py-2 text-warmbrown-700 hover:text-peach-500 font-medium">趣味冷知識</a>
+            <a href="#quotes" class="block py-2 text-warmbrown-700 hover:text-peach-500 font-medium">喵語錄</a>
+            <a href="#gallery" class="block py-2 text-warmbrown-700 hover:text-peach-500 font-medium">寫真藝廊</a>
+        </div>
+    </header>
+
+    <!-- 頁首主視覺區 -->
+    <section class="relative overflow-hidden pt-12 pb-20 md:py-28 bg-gradient-to-b from-cream-100 to-cream-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-center md:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-peach-100 text-peach-600 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase">
+                        <i class="fa-solid fa-paw"></i>
+                        <span>探索神秘又迷人的貓咪世界</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-warmbrown-800 leading-tight">
+                        用溫柔與愛，<br>解碼<span class="text-peach-500 underline decoration-peach-300 decoration-wavy">貓咪</span>的小心思
+                    </h1>
+                    <p class="text-warmbrown-700/80 text-base sm:text-lg max-w-xl mx-auto md:mx-0 font-normal">
+                        貓咪是獨立而優雅的伴侶。從品種特徵到照護秘訣，帶你一步步走進主子的內心宇宙，體驗最療癒的吸貓日常。
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
+                        <a href="#breeds" class="w-full sm:w-auto bg-peach-500 hover:bg-peach-600 text-white font-medium px-8 py-3.5 rounded-2xl shadow-xl shadow-peach-500/30 text-center transition-all-custom hover:scale-105">
+                            開始探索品種 <i class="fa-solid fa-arrow-down ml-2"></i>
+                        </a>
+                        <a href="#facts" class="w-full sm:w-auto bg-cream-200 hover:bg-cream-300 text-warmbrown-800 font-medium px-8 py-3.5 rounded-2xl text-center transition-all-custom">
+                            查看冷知識
+                        </a>
+                    </div>
+                </div>
+                <div class="relative flex justify-center">
+                    <div class="relative w-72 h-72 sm:w-96 sm:h-96 bg-gradient-to-tr from-peach-300 to-peach-100 rounded-full flex items-center justify-center card-shadow overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80" 
+                             alt="可愛貓咪主視覺" 
+                             class="w-[90%] h-[90%] object-cover rounded-full shadow-inner hover:scale-105 transition-all-custom duration-700"
+                             onerror="this.src='https://placehold.co/600x600/ffd0bc/5c4033?text=Cute+Cat'">
+                    </div>
+                    <!-- 浮動裝飾小卡 -->
+                    <div class="absolute bottom-4 left-4 sm:left-10 bg-white/90 backdrop-blur-md p-4 rounded-2xl card-shadow flex items-center space-x-3 animate-bounce duration-1000">
+                        <div class="w-10 h-10 bg-peach-100 text-peach-500 rounded-xl flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-fish"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-warmbrown-700/60 font-medium">主子滿意度</p>
+                            <p class="text-sm font-bold text-warmbrown-800">100% 享受吸貓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. 品種介紹區 (帶有標籤切換) -->
+    <section id="breeds" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-peach-500 font-semibold text-sm tracking-wider uppercase">Breed Guide</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-warmbrown-800 mt-2">人氣貓咪品種解密</h2>
+            <p class="text-warmbrown-700/70 mt-3 text-sm sm:text-base">不同的品種擁有截然不同的外貌與性格，點擊下方標籤認識牠們吧！</p>
+        </div>
+
+        <!-- 標籤按鈕列 -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10" id="breed-tabs">
+            <button onclick="switchBreed('british')" class="breed-tab px-6 py-2.5 rounded-full font-medium text-sm transition-all-custom bg-peach-500 text-white shadow-md shadow-peach-500/30" data-target="british">英國短毛貓</button>
+            <button onclick="switchBreed('ragdoll')" class="breed-tab px-6 py-2.5 rounded-full font-medium text-sm transition-all-custom bg-white text-warmbrown-700 border border-cream-300 hover:border-peach-300" data-target="ragdoll">布偶貓</button>
+            <button onclick="switchBreed('tabby')" class="breed-tab px-6 py-2.5 rounded-full font-medium text-sm transition-all-custom bg-white text-warmbrown-700 border border-cream-300 hover:border-peach-300" data-target="tabby">米克斯虎斑</button>
+            <button onclick="switchBreed('siamese')" class="breed-tab px-6 py-2.5 rounded-full font-medium text-sm transition-all-custom bg-white text-warmbrown-700 border border-cream-300 hover:border-peach-300" data-target="siamese">暹羅貓</button>
+        </div>
+
+        <!-- 品種內容展示面板 -->
+        <div id="breed-content" class="bg-white rounded-3xl p-6 sm:p-10 card-shadow transition-all-custom">
+            <!-- 內容會透過 JavaScript 動態載入，預設顯示英國短毛貓 -->
+        </div>
+    </section>
+
+    <!-- 2. 日常照顧指南區 (格狀卡片互動) -->
+    <section id="care" class="py-20 bg-cream-100/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-peach-500 font-semibold text-sm tracking-wider uppercase">Daily Care</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-warmbrown-800 mt-2">貓咪日常照顧指南</h2>
+                <p class="text-warmbrown-700/70 mt-3 text-sm sm:text-base">想讓主子過得舒心健康？掌握四大關鍵核心，新手也能變身專業鏟屎官！</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 照顧卡片 1 -->
+                <div class="bg-white p-8 rounded-3xl card-shadow card-shadow-hover transition-all-custom flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 bg-peach-100 text-peach-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-peach-500 group-hover:text-white transition-all-custom">
+                            <i class="fa-solid fa-bowl-food"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-warmbrown-800 mb-3">飲食與營養</h3>
+                        <p class="text-warmbrown-700/70 text-sm leading-relaxed">
+                            貓咪是嚴格的肉食動物。需提供高蛋白質、適量脂肪且水分充足的濕食與乾糧組合，並隨時確保乾淨水源。
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-200 text-xs font-semibold text-peach-500 flex items-center">
+                        <span>關鍵：多濕食、少澱粉</span>
+                    </div>
+                </div>
+
+                <!-- 照顧卡片 2 -->
+                <div class="bg-white p-8 rounded-3xl card-shadow card-shadow-hover transition-all-custom flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 bg-peach-100 text-peach-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-peach-500 group-hover:text-white transition-all-custom">
+                            <i class="fa-solid fa-house-chimney-window"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-warmbrown-800 mb-3">環境與安全</h3>
+                        <p class="text-warmbrown-700/70 text-sm leading-relaxed">
+                            提供垂直探索空間（貓跳臺）、安全隱蔽的貓砂盆，並收好有毒植物及細小物件，創造無壓力的生活環境。
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-200 text-xs font-semibold text-peach-500 flex items-center">
+                        <span>關鍵：貓砂盆數量 = 貓口數 + 1</span>
+                    </div>
+                </div>
+
+                <!-- 照顧卡片 3 -->
+                <div class="bg-white p-8 rounded-3xl card-shadow card-shadow-hover transition-all-custom flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 bg-peach-100 text-peach-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-peach-500 group-hover:text-white transition-all-custom">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-warmbrown-800 mb-3">健康與清潔</h3>
+                        <p class="text-warmbrown-700/70 text-sm leading-relaxed">
+                            定期梳毛減少毛球症、清潔耳朵與剪指甲。每年帶貓咪進行健康檢查，及早發現潛在疾病。
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-200 text-xs font-semibold text-peach-500 flex items-center">
+                        <span>關鍵：定期驅蟲與疫苗</span>
+                    </div>
+                </div>
+
+                <!-- 照顧卡片 4 -->
+                <div class="bg-white p-8 rounded-3xl card-shadow card-shadow-hover transition-all-custom flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 bg-peach-100 text-peach-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-peach-500 group-hover:text-white transition-all-custom">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-warmbrown-800 mb-3">陪伴與互動</h3>
+                        <p class="text-warmbrown-700/70 text-sm leading-relaxed">
+                            每天抽出 15-20 分鐘使用逗貓棒模擬狩獵遊戲，釋放貓咪精力，增進人貓情感連結，預防憂鬱。
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-200 text-xs font-semibold text-peach-500 flex items-center">
+                        <span>關鍵：每天狩獵遊戲消耗精力</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 趣味冷知識區 (點擊翻牌/切換互動) -->
+    <section id="facts" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-peach-500 font-semibold text-sm tracking-wider uppercase">Fun Facts</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-warmbrown-800 mt-2">你不知道的貓咪冷知識</h2>
+            <p class="text-warmbrown-700/70 mt-3 text-sm sm:text-base">貓咪的神奇超能力與古怪行為，你知道幾個？點擊按鈕探索下一則！</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto bg-gradient-to-tr from-peach-100 to-cream-100 p-8 sm:p-12 rounded-3xl card-shadow relative overflow-hidden text-center">
+            <div class="absolute -top-10 -right-10 text-peach-200/50 text-9xl font-bold pointer-events-none">
+                <i class="fa-solid fa-lightbulb"></i>
+            </div>
+            
+            <div id="fact-number" class="inline-block bg-peach-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-6">
+                冷知識 #1
+            </div>
+            
+            <h3 id="fact-title" class="text-2xl sm:text-3xl font-bold text-warmbrown-800 mb-4">
+                貓咪為什麼會踩踏（踏踏）？
+            </h3>
+            
+            <p id="fact-desc" class="text-warmbrown-700 text-base sm:text-lg leading-relaxed mb-8 max-w-xl mx-auto">
+                這是幼貓時期吸奶動作的遺留行為。當牠們對你做出「踩踏」動作時，代表牠們感到極度安心、安全，並且把你當成了親近的媽媽！
+            </p>
+
+            <button onclick="nextFact()" class="bg-white hover:bg-peach-500 hover:text-white text-warmbrown-800 font-semibold px-8 py-3 rounded-2xl shadow-md transition-all-custom inline-flex items-center space-x-2">
+                <span>看下一個冷知識</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- 4. 貓咪語錄區 -->
+    <section id="quotes" class="py-20 bg-cream-100/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-peach-500 font-semibold text-sm tracking-wider uppercase">Cat Quotes</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-warmbrown-800 mt-2">療癒心靈的喵語錄</h2>
+                <p class="text-warmbrown-700/70 mt-3 text-sm sm:text-base">名人們眼中的貓咪哲學，句句戳中貓奴心坎。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl card-shadow flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-quote-left text-peach-300 text-3xl mb-4"></i>
+                        <p class="text-warmbrown-700 text-sm leading-relaxed mb-6">
+                            「養狗的人有主人，養貓的人有服務生。」
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-4 border-t border-cream-200">
+                        <div class="w-8 h-8 rounded-full bg-peach-100 flex items-center justify-center text-peach-500 text-xs font-bold">
+                            約
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-warmbrown-800">約翰·洛根</h4>
+                            <p class="text-[10px] text-warmbrown-700/60">英國作家</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl card-shadow flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-quote-left text-peach-300 text-3xl mb-4"></i>
+                        <p class="text-warmbrown-700 text-sm leading-relaxed mb-6">
+                            「世界上最小的傑作，是一件完美的藝術品——貓。」
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-4 border-t border-cream-200">
+                        <div class="w-8 h-8 rounded-full bg-peach-100 flex items-center justify-center text-peach-500 text-xs font-bold">
+                            李
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-warmbrown-800">李奧納多·達文西</h4>
+                            <p class="text-[10px] text-warmbrown-700/60">文藝復興大師</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl card-shadow flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-quote-left text-peach-300 text-3xl mb-4"></i>
+                        <p class="text-warmbrown-700 text-sm leading-relaxed mb-6">
+                            「縱使是最小的貓，也是一幅曠世巨作。」
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-4 border-t border-cream-200">
+                        <div class="w-8 h-8 rounded-full bg-peach-100 flex items-center justify-center text-peach-500 text-xs font-bold">
+                            達
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-warmbrown-800">達芬奇</h4>
+                            <p class="text-[10px] text-warmbrown-700/60">藝術家與科學家</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 貓咪寫真藝廊區 -->
+    <section id="gallery" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-peach-500 font-semibold text-sm tracking-wider uppercase">Photo Gallery</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-warmbrown-800 mt-2">療癒主子寫真藝廊</h2>
+            <p class="text-warmbrown-700/70 mt-3 text-sm sm:text-base">捕捉貓咪們千姿百態的萌瞬間，每一張都融化你的心。</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="group relative overflow-hidden rounded-3xl card-shadow h-72">
+                <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=800&q=80" 
+                     alt="好奇的貓咪" 
+                     class="w-full h-full object-cover group-hover:scale-110 transition-all-custom duration-500"
+                     onerror="this.src='https://placehold.co/600x600/ffd0bc/5c4033?text=Cat+1'">
+                <div class="absolute inset-0 bg-gradient-to-t from-warmbrown-800/80 via-transparent opacity-0 group-hover:opacity-100 transition-all-custom flex items-end p-6">
+                    <p class="text-white text-sm font-medium">好奇凝視窗外的橘貓</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-3xl card-shadow h-72">
+                <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=800&q=80" 
+                     alt="慵懶貓咪" 
+                     class="w-full h-full object-cover group-hover:scale-110 transition-all-custom duration-500"
+                     onerror="this.src='https://placehold.co/600x600/ffd0bc/5c4033?text=Cat+2'">
+                <div class="absolute inset-0 bg-gradient-to-t from-warmbrown-800/80 via-transparent opacity-0 group-hover:opacity-100 transition-all-custom flex items-end p-6">
+                    <p class="text-white text-sm font-medium">享受午后陽光的慵懶時刻</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-3xl card-shadow h-72">
+                <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=800&q=80" 
+                     alt="小萌貓" 
+                     class="w-full h-full object-cover group-hover:scale-110 transition-all-custom duration-500"
+                     onerror="this.src='https://placehold.co/600x600/ffd0bc/5c4033?text=Cat+3'">
+                <div class="absolute inset-0 bg-gradient-to-t from-warmbrown-800/80 via-transparent opacity-0 group-hover:opacity-100 transition-all-custom flex items-end p-6">
+                    <p class="text-white text-sm font-medium">剛睡醒的呆萌小可愛</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-3xl card-shadow h-72">
+                <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=800&q=80" 
+                     alt="黑白貓" 
+                     class="w-full h-full object-cover group-hover:scale-110 transition-all-custom duration-500"
+                     onerror="this.src='https://placehold.co/600x600/ffd0bc/5c4033?text=Cat+4'">
+                <div class="absolute inset-0 bg-gradient-to-t from-warmbrown-800/80 via-transparent opacity-0 group-hover:opacity-100 transition-all-custom flex items-end p-6">
+                    <p class="text-white text-sm font-medium">充滿靈氣的雙色小貓</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-3xl card-shadow h-72">
+                <img src="https://images.unsplash.com/photo-1561948955-570b270e7c36?auto=format&fit=crop&w=800&q=80" 
+                     alt="高貴布偶貓" 
+                     class="w-full h-full object-cover group-hover:scale-110 transition-all-custom duration-500"
+                     onerror="this.src='https://placehold.co/600x600/ffd0bc/5c4033?text=Cat+5'">
+                <div class="absolute inset-0 bg-gradient-to-t from-warmbrown-800/80 via-transparent opacity-0 group-hover:opacity-100 transition-all-custom flex items-end p-6">
+                    <p class="text-white text-sm font-medium">高貴優雅的藍眼布偶</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-3xl card-shadow h-72">
+                <img src="https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?auto=format&fit=crop&w=800&q=80" 
+                     alt="玩耍貓咪" 
+                     class="w-full h-full object-cover group-hover:scale-110 transition-all-custom duration-500"
+                     onerror="this.src='https://placehold.co/600x600/ffd0bc/5c4033?text=Cat+6'">
+                <div class="absolute inset-0 bg-gradient-to-t from-warmbrown-800/80 via-transparent opacity-0 group-hover:opacity-100 transition-all-custom flex items-end p-6">
+                    <p class="text-white text-sm font-medium">活力十足的探險家</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="bg-warmbrown-800 text-cream-200 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center space-x-3 mb-6 md:mb-0">
+                <div class="w-10 h-10 bg-peach-500 rounded-xl flex items-center justify-center text-white text-xl">
+                    <i class="fa-solid fa-cat"></i>
+                </div>
+                <span class="text-lg font-bold tracking-wider text-white">喵星人不思議</span>
+            </div>
+            <p class="text-xs text-cream-300/60 text-center md:text-left">
+                &copy; 2026 Cat's Secret World. All rights reserved. 用愛與關懷陪伴每一隻貓咪。
+            </p>
+            <div class="flex space-x-4 mt-6 md:mt-0">
+                <a href="#" class="w-9 h-9 rounded-full bg-warmbrown-700 flex items-center justify-center text-cream-200 hover:bg-peach-500 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="w-9 h-9 rounded-full bg-warmbrown-700 flex items-center justify-center text-cream-200 hover:bg-peach-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="w-9 h-9 rounded-full bg-warmbrown-700 flex items-center justify-center text-cream-200 hover:bg-peach-500 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 摸摸貓咪互動彈窗 (替代 alert) -->
+    <div id="meow-modal" class="fixed inset-0 z-50 bg-warmbrown-800/50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full card-shadow text-center relative transform transition-all scale-95 opacity-0 duration-300" id="modal-container">
+            <div class="w-16 h-16 bg-peach-100 text-peach-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-heart animate-pulse"></i>
+            </div>
+            <h3 class="text-xl font-bold text-warmbrown-800 mb-2">喵嗚～ 呼嚕嚕～</h3>
+            <p id="meow-message" class="text-warmbrown-700 text-sm mb-6">你摸了貓咪的下巴，主子感到非常舒服，對你翻開了肚肚！</p>
+            <div class="flex space-x-3">
+                <button onclick="petAgain()" class="flex-1 bg-peach-500 hover:bg-peach-600 text-white font-medium py-2.5 rounded-xl text-sm shadow-md transition-all-custom">繼續摸摸</button>
+                <button onclick="closeMeowModal()" class="flex-1 bg-cream-200 hover:bg-cream-300 text-warmbrown-800 font-medium py-2.5 rounded-xl text-sm transition-all-custom">收下主子的愛</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 互動邏輯 -->
+    <script>
+        // 手機版選單切換
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 品種資料庫
+        const breedsData = {
+            british: {
+                name: "英國短毛貓 (British Shorthair)",
+                image: "https://images.unsplash.com/photo-1533743832559-1e35fcc9374f?auto=format&fit=crop&w=800&q=80",
+                traits: ["圓滾滾的身形", "親人且溫和", "適應力強"],
+                desc: "英國短毛貓擁有厚實的短毛、圓圓的臉龐和大而圓的眼睛。個性冷靜、溫柔且非常友善，不容易緊張，是極佳的家庭伴侶貓。"
+            },
+            ragdoll: {
+                name: "布偶貓 (Ragdoll)",
+                image: "https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?auto=format&fit=crop&w=800&q=80",
+                traits: ["藍色大眼睛", "抱起來像布偶般柔軟", "黏人愛撒嬌"],
+                desc: "布偶貓體型較大，擁有絲綢般的長毛和迷人的湛藍眼睛。當把牠抱起來時，身體會像布偶一樣放鬆癱軟，性格極度溫馴黏人。"
+            },
+            tabby: {
+                name: "米克斯虎斑貓 (Domestic Shorthair)",
+                image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80",
+                traits: ["生命力極強", "聰明伶俐", "花紋多變"],
+                desc: "米克斯虎斑貓擁有極佳的基因與強健的免疫力。性格活潑好動、好奇心旺盛且智商極高，是守護家裡的元氣小精靈。"
+            },
+            siamese: {
+                name: "暹羅貓 (Siamese)",
+                image: "https://images.unsplash.com/photo-1513245543132-31f507417b26?auto=format&fit=crop&w=800&q=80",
+                traits: ["獨特重點色", "身材修長健美", "話嘮愛叫"],
+                desc: "暹羅貓具有標誌性的「重點色」毛皮（臉部、耳朵、四肢較深）與水藍色杏仁眼。個性聰穎、感情豐富，非常喜歡和人類「對話」。"
+            }
+        };
+
+        // 切換品種函數
+        function switchBreed(breedKey) {
+            // 更新按鈕樣式
+            document.querySelectorAll('.breed-tab').forEach(btn => {
+                if(btn.getAttribute('data-target') === breedKey) {
+                    btn.className = "breed-tab px-6 py-2.5 rounded-full font-medium text-sm transition-all-custom bg-peach-500 text-white shadow-md shadow-peach-500/30";
+                } else {
+                    btn.className = "breed-tab px-6 py-2.5 rounded-full font-medium text-sm transition-all-custom bg-white text-warmbrown-700 border border-cream-300 hover:border-peach-300";
+                }
+            });
+
+            // 渲染內容
+            const data = breedsData[breedKey];
+            const container = document.getElementById('breed-content');
+            
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="rounded-2xl overflow-hidden h-72 sm:h-80 card-shadow">
+                        <img src="${data.image}" alt="${data.name}" class="w-full h-full object-cover hover:scale-105 transition-all-custom duration-500" onerror="this.src='https://placehold.co/600x400/ffd0bc/5c4033?text=Cat'">
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-warmbrown-800">${data.name}</h3>
+                        <div class="flex flex-wrap gap-2">
+                            ${data.traits.map(t => `<span class="bg-peach-100 text-peach-600 text-xs font-semibold px-3 py-1 rounded-full"><i class="fa-solid fa-check mr-1"></i>${t}</span>`).join('')}
+                        </div>
+                        <p class="text-warmbrown-700 text-base leading-relaxed">${data.desc}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 初始化載入第一個品種
+        switchBreed('british');
+
+        // 冷知識資料
+        const facts = [
+            {
+                num: "冷知識 #1",
+                title: "貓咪為什麼會踩踏（踏踏）？",
+                desc: "這是幼貓時期吸奶動作的遺留行為。當牠們對你做出「踩踏」動作時，代表牠們感到極度安心、安全，並且把你當成了親近的媽媽！"
+            },
+            {
+                num: "冷知識 #2",
+                title: "貓咪的呼嚕聲（Purr）有治癒能力？",
+                desc: "研究發現貓咪呼嚕的頻率大約在 25-150 Hz 之間，這個頻率能促進骨骼生長、減輕疼痛與修復肌肉，對貓咪自己和人類都有療癒放鬆的效果。"
+            },
+            {
+                num: "冷知識 #3",
+                title: "貓咪其實是個超級大睡神！",
+                desc: "貓咪一生中有大約 70% 的時間都在睡覺。一隻 9 歲的貓咪，實際上清醒著的時間只有大約 3 年左右，剩下的時間都在夢裡抓老鼠呢！"
+            },
+            {
+                num: "冷知識 #4",
+                title: "為什麼貓咪總是喜歡擠紙箱？",
+                desc: "狹窄、封閉的空間能給予貓咪極大的安全感與溫暖。紙箱能有效降低牠們的壓力指數，是貓界公認的紓壓聖品。"
+            }
+        ];
+
+        let currentFactIndex = 0;
+        function nextFact() {
+            currentFactIndex = (currentFactIndex + 1) % facts.length;
+            const f = facts[currentFactIndex];
+            document.getElementById('fact-number').innerText = f.num;
+            document.getElementById('fact-title').innerText = f.title;
+            document.getElementById('fact-desc').innerText = f.desc;
+        }
+
+        // 互動彈窗邏輯
+        const meowModal = document.getElementById('meow-modal');
+        const modalContainer = document.getElementById('modal-container');
+        const meowMessage = document.getElementById('meow-message');
+
+        const meowResponses = [
+            "你摸了貓咪的下巴，主子舒服到眼睛瞇成一條線，發出超大聲的呼嚕嚕！",
+            "哎呀！不小心摸到了主子的尾巴禁區，獲得貓皇冷漠白眼一枚。",
+            "你輕輕搔了搔貓咪的耳後，主子高興得用頭磨蹭你的手掌心！",
+            "你摸了摸主子胖嘟嘟的肚子，獲得「踩踏」大禮包一份！"
+        ];
+
+        function openMeowModal() {
+            const randomMsg = meowResponses[Math.floor(Math.random() * meowResponses.length)];
+            meowMessage.innerText = randomMsg;
+            meowModal.classList.remove('hidden');
+            meowModal.classList.add('flex');
+            setTimeout(() => {
+                modalContainer.classList.remove('scale-95', 'opacity-0');
+                modalContainer.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function petAgain() {
+            const randomMsg = meowResponses[Math.floor(Math.random() * meowResponses.length)];
+            meowMessage.innerText = randomMsg;
+            // 加上小跳動特效
+            modalContainer.classList.add('scale-105');
+            setTimeout(() => modalContainer.classList.remove('scale-105'), 200);
+        }
+
+        function closeMeowModal() {
+            modalContainer.classList.remove('scale-100', 'opacity-100');
+            modalContainer.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                meowModal.classList.remove('flex');
+                meowModal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
